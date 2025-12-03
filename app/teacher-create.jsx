@@ -1,6 +1,6 @@
     import React, { useState } from 'react';
     import { View, Text, Button, Image, StyleSheet, Alert, Platform } from 'react-native';
-    import { ImagePicker, MediaType } from 'expo-image-picker';
+    import * as ImagePicker from 'expo-image-picker';
     import { useRouter } from 'expo-router';
 
     export default function TeacherCreate() {
@@ -12,7 +12,7 @@
         if (status !== 'granted') return Alert.alert('Camera permission required');
 
         const res = await ImagePicker.launchCameraAsync({ 
-            mediaTypes: MediaType.Image,
+            mediaTypes: ImagePicker.MediaType.Image,
             quality: 0.8 
         });
         if (!res.canceled && res.assets?.length > 0) {
@@ -28,7 +28,7 @@
         }
 
         const res = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: MediaType.Image,
+            mediaTypes: ImagePicker.MediaType.Image,
             quality: 0.8,
         });
         
