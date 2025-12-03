@@ -36,7 +36,9 @@ export default function TeacherAnnotate() {
         
         setIsUploading(true);
         try {
+            console.log("Starting upload process...");
             const originalUpload = await uploadFileToStorage(imageUri, `exercise-orig-${Date.now()}.jpg`);
+            console.log("Upload successful:", originalUpload);
 
             router.push({
                 pathname: "/student-solve",
@@ -46,7 +48,8 @@ export default function TeacherAnnotate() {
                 }
             });
         } catch (err) {
-            Alert.alert("Save failed", String(err));
+            console.error("Save failed:", err);
+            Alert.alert("Save failed", `Error: ${err.message || 'Unknown error occurred'}`);
         } finally {
             setIsUploading(false);
         }

@@ -15,28 +15,18 @@ target/
 *.out
 
 # Dependencies
-.venv/
-venv/
 node_modules/
-.julia/
-.zig/
-.mypy_cache/
-.pytest_cache/
-.gradle/
-coverage/
-htmlcov/
-*.coverage
+venv/
+.venv/
+.env
+.env.local
+.env.*
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
 *.swo
-
-# Environment
-.env
-.env.local
-*.env.*
 
 # Editors
 .vscode/
@@ -47,4 +37,14 @@ htmlcov/
 # System files
 .DS_Store
 Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Cache directories
+.mypy_cache/
+.pytest_cache/
+.gradle/
 ```
