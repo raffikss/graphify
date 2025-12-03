@@ -12,7 +12,7 @@
         if (status !== 'granted') return Alert.alert('Camera permission required');
 
         const res = await ImagePicker.launchCameraAsync({ 
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ImagePicker.MediaType.Image,
             quality: 0.8 
         });
         if (!res.canceled && res.assets?.length > 0) {
@@ -28,7 +28,7 @@
         }
 
         const res = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ImagePicker.MediaType.Image,
             quality: 0.8,
         });
         
