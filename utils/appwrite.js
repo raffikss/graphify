@@ -1,6 +1,6 @@
 import { Client, Storage, ID } from 'react-native-appwrite'; 
 import mime from 'mime'; 
-import * as FileSystem from 'expo-file-system'; 
+import { getInfoAsync } from 'expo-file-system/legacy'; 
 
 // configs for appwrite
 const APPWRITE_ENDPOINT = 'https://fra.cloud.appwrite.io/v1';
@@ -45,12 +45,12 @@ export async function uploadFileToStorage(fileUri, fileName = `exercise-file-${D
         // Get file info
         let fileInfo;
         try {
-            fileInfo = await FileSystem.getInfoAsync(cleanUri);
+            fileInfo = await getInfoAsync(cleanUri);
             console.log('File info:', fileInfo);
         } catch (fileErr) {
             console.error('File system access error:', fileErr);
             // If direct access fails, try with original URI
-            fileInfo = await FileSystem.getInfoAsync(fileUri);
+            fileInfo = await getInfoAsync(fileUri);
             cleanUri = fileUri;
             console.log('Using original URI for file access:', cleanUri);
         }
