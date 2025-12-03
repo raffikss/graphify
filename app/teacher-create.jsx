@@ -1,5 +1,5 @@
     import React, { useState } from 'react';
-    import { View, Text, Button, Image, StyleSheet, Alert } from 'react-native';
+    import { View, Text, Button, Image, StyleSheet, Alert, Platform } from 'react-native';
     import * as ImagePicker from 'expo-image-picker';
     import { useRouter } from 'expo-router';
 
@@ -17,8 +17,25 @@
         }
     }
 
+    async function pickFile() {
+        // Request media library permissions for file selection
+        if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') return Alert.alert('Media library permission required');
+        }
+
+        const res = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 0.8,
+        });
+        
+        if (!res.canceled && res.assets?.length > 0) {
+            setImageUri(res.assets[0].uri);
+        }
+    }
+
     function goToAnnotate() {
-        if (!imageUri) return Alert.alert('Take a photo first');
+        if (!imageUri) return Alert.alert('Please select an image first');
         router.push({ pathname: '/teacher-annotate', params: { imageUri } });
     }
 
@@ -29,6 +46,7 @@
             {imageUri ? <Image source={{ uri: imageUri }} style={styles.image} /> : <Text>No image yet</Text>}
         </View>
         <Button title="Take Photo" onPress={pickImage} />
+        <Button title="Choose from Gallery" onPress={pickFile} />
         <Button title="Annotate & Save" onPress={goToAnnotate} />
         </View>
     );
