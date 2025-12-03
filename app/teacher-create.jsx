@@ -11,7 +11,10 @@
         const { status } = await ImagePicker.requestCameraPermissionsAsync();
         if (status !== 'granted') return Alert.alert('Camera permission required');
 
-        const res = await ImagePicker.launchCameraAsync({ quality: 0.8 });
+        const res = await ImagePicker.launchCameraAsync({ 
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 0.8 
+        });
         if (!res.canceled && res.assets?.length > 0) {
         setImageUri(res.assets[0].uri);
         }
